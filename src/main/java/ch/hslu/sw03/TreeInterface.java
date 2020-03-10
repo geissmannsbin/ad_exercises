@@ -31,10 +31,10 @@ public interface TreeInterface<T> {
 
 /*
 @startuml
-interface TreeInterface<E> {
-+ void add(E)
-+ void remove(E)
-+ Node search(E)
+interface TreeInterface<T> {
++ void add(T)
++ void remove(T)
++ Node search(T)
 }
 @enduml
 */

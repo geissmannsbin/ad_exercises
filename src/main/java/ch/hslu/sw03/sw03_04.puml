@@ -1,0 +1,57 @@
+/*
+https://plantuml.com/de/class-diagram
+
+@startuml
+class SimpleTree<T> {
+- (static) final Logger : LOG
+- Node : root
+- int : size
+- int : searchcount
++ SimpleTree()
++ void add(T)
++ void remove(T)
++ int getSize()
++ Node search(T)
+- Node search(T, Node)
+}
+
+class Node<T> {
+- (static) final Log : Logger
+- leftNode : Node
+- rightNode : Node
+- data : Data
+- searchCount : int
++ Node(E)
++ void setRightNode(Node)
++ void setLeftNode(Node)
++ void setData(E)
++ Node getrightData()
++ Node getLeftNode()
++ getData()
++ int hashCode()
++ bool equals(Object)
++ int compareTo(Node)
++ String toString()
+}
+
+class Data<T> {
+- data: E
++ Data(E)
++ void setData(E)
++ E getData()
++ int hashCode()
++ boolean equals(Object)
++ int compareTo(E)
++ String toString()
+}
+
+interface TreeInterface<T> {
++ void add(T)
++ void remove(T)
++ Node search(T)
+}
+
+TreeInterface "0..*" o-- "1" SimpleTree
+Data "1" o-- "0..*" Node
+Node "0..*" o-- "1" SimpleTree
+@enduml
