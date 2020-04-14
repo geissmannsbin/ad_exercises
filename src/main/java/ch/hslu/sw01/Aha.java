@@ -18,7 +18,7 @@ class Aha {
     }
 
     private static void task(final int n) throws InterruptedException {
-        task1(); task1(); task1(); task1();
+        task1(); task1(); task1(); task1();n
         for (int i = 0; i < n; i++){
             task2(); task2(); task2();
             for (int j = 0; j < n; j++) {
