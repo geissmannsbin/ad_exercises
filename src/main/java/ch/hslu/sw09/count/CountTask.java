@@ -36,7 +36,7 @@ public class CountTask implements Callable<Integer> {
     }
 
     @Override
-    public Integer call() throws Exception {
+    public Integer call() {
         for (int i = 0; i < counts; i++) {
             counter.increment();
         }

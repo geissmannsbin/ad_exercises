@@ -18,7 +18,7 @@ public class CountingTask implements Callable<Long> {
     }
 
     @Override
-    public Long call() throws Exception {
+    public Long call() {
         long start = 0;
         long finish = 0;
         try {
