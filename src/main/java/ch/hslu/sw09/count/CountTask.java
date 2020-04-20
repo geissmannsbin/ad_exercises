@@ -22,7 +22,7 @@ import java.util.concurrent.Callable;
  */
 public class CountTask implements Callable<Integer> {
 
-    private final Counter counter;
+    private final Count counter;
     private final int counts;
 
     /**
@@ -30,7 +30,7 @@ public class CountTask implements Callable<Integer> {
      * @param counter zu testender Counter.
      * @param counts Anzahl Zähldruchläufe.
      */
-    public CountTask(Counter counter, int counts) {
+    public CountTask(Count counter, int counts) {
         this.counter = counter;
         this.counts = counts;
     }

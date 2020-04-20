@@ -31,7 +31,7 @@ import java.util.concurrent.Future;
  */
 public final class SpeedCount {
 
-    private static final Logger LOG = LogManager.getLogger(ch.hslu.ad.exercise.n3.count.SpeedCount.class);
+    private static final Logger LOG = LogManager.getLogger(ch.hslu.sw09.count.SpeedCount.class);
     private static boolean counterCheck;
 
     /**
@@ -47,7 +47,7 @@ public final class SpeedCount {
      * @param tester Anzahl Tester-Threads.
      * @return Dauer des Tests in mSec.
      */
-    public static long speedTest(Counter counter, int counts, int tester) {
+    public static long speedTest(Count counter, int counts, int tester) {
         final ExecutorService executor = Executors.newCachedThreadPool();
         final List<Future<Integer>> futures = new ArrayList<>();
         long timer = System.currentTimeMillis();
@@ -77,7 +77,7 @@ public final class SpeedCount {
     public static void main(final String args[]) {
         final int passes = 23;
         final int tester = 8;
-        final Counter counterSync = new SynchronizedCounter();
+        final Count counterSync = new SynchronizedCounter();
         long sum = 0;
         for (int i = 0; i < passes; i++) {
             counterCheck = false;
@@ -87,7 +87,7 @@ public final class SpeedCount {
             }
         }
         LOG.info("Sync counter average test duration = " + sum / passes + " ms");
-        final Counter counterAtom = new AtomicCounter();
+        final Count counterAtom = new AtomicCounter();
         sum = 0;
         for (int i = 0; i < passes; i++) {
             sum += speedTest(counterAtom, 1000000, tester);
