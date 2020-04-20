@@ -13,7 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ch.hslu.ad.exercise.n1.balls;
+package ch.hslu.sw07.ballgame;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -22,6 +25,8 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Shape;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +43,7 @@ import javax.swing.JPanel;
  *
  * @version 2016.02.29
  */
-public final class Canvas {
+public final class Canvas implements MouseListener {
     // Note: The implementation of this class (specifically the handling of
     // shape identity and colors) is slightly more complex than necessary. This
     // is done on purpose to keep the interface and instance fields of the
@@ -46,12 +51,14 @@ public final class Canvas {
 
     private static Canvas canvasSingleton;
 
+    private static final Logger LOG = LogManager.getLogger(Canvas.class);
+
     /**
      * Factory method to get the canvas singleton object.
      *
      * @return singleton Canvas object.
      */
-    public static Canvas getCanvas() {
+    static Canvas getCanvas() {
         if (canvasSingleton == null) {
             canvasSingleton = new Canvas("Ball Demo", 600, 400,
                     Color.white);
@@ -77,7 +84,7 @@ public final class Canvas {
      * @param height the desired height for the canvas.
      * @param bgColor the desired background color of the canvas.
      */
-    private Canvas(String title, int width, int height, Color bgColor) {
+    Canvas(String title, int width, int height, Color bgColor) {
         frame = new JFrame();
         canvas = new CanvasPane();
         frame.setContentPane(canvas);
@@ -227,6 +234,37 @@ public final class Canvas {
         Dimension size = canvas.getSize();
         graphic.fill(new Rectangle(0, 0, size.width, size.height));
         graphic.setColor(original);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent mouseEvent) {
+        Circle circle = new Circle(60, mouseEvent.getX(), mouseEvent.getY(), "black");
+        Thread thread = new Thread(circle);
+        LOG.info("Circle Created");
+        thread.start();
+        objects.add(circle);
+
+        redraw();
+    }
+
+    @Override
+    public void mousePressed(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent mouseEvent) {
+
     }
 
     /**

@@ -13,9 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ch.hslu.ad.exercise.n1.balls;
+package ch.hslu.sw07.ballgame;
 
 import java.awt.geom.Ellipse2D;
+import java.util.Random;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 /**
  * A circle that can be manipulated and that draws itself on a canvas.
@@ -23,13 +27,17 @@ import java.awt.geom.Ellipse2D;
  * @author Michael Kölling and David J. Barnes
  * @version 2016.02.29
  */
-public class Circle {
+public class Circle implements Runnable {
 
     private int diameter;
     private int xPosition;
     private int yPosition;
     private String color;
     private boolean isVisible;
+
+    private final Thread thread;
+    private final Random random;
+    private static final Logger LOG = LogManager.getLogger(Circle.class);
 
     /**
      * Create a new circle at default position with default color.
@@ -47,6 +55,8 @@ public class Circle {
      * @param color color of the circle.
      */
     public Circle(int diameter, int xPosition, int yPosition, String color) {
+        this.thread = new Thread();
+        this.random = new Random();
         this.diameter = diameter;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
@@ -221,5 +231,20 @@ public class Circle {
             Canvas canvas = Canvas.getCanvas();
             canvas.erase(this);
         }
+    }
+
+    @Override
+    public void run() {
+        try {
+            while (!this.thread.isInterrupted()){
+                while (this.diameter <= (600 - this.diameter)) {
+                    Thread.sleep(random.nextInt(10));
+                    this.yPosition = this.yPosition + random.nextInt(5);
+                }
+            }
+        } catch (InterruptedException e) {
+            LOG.error(e.getMessage());
+        }
+
     }
 }
